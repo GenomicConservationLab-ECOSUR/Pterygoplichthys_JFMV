@@ -1,0 +1,34 @@
+Steps
+
+######## Llamado de SNP de novo ##########################################################################################################
+
+1. Preprocesamiento de datos ##### parte 1 ##### del comando (script_llamado.sh)
+2. Hacer el llamado, generar el catálogo, obtener base de datos y filtrado #### Parte 2 #### del comando (script_llamado.sh)
+
+####### Llamado de SNP basado en Transcriptoma ############################################################################################
+
+1. Indexamos las muestras con el transcriptoma de referencia utilizando BWA #### Parte 1 ##### del comando (corrida_bwa.sh)
+2. Alineamos y mapeamos las muestras del resultado anterior ##### Parte 2 ##### del comando (corrida_bwa.sh)
+3. Convertir archivos .bam a .sam ##### Parte 3 ###### del comando (corrida_bwa.sh)
+4. Para el llamado de lecturas mapeadas corremos en la terminal el siguiente comando:
+# ref_map.pl -T 3 --popmap ./popmap -o ./stacks_ref/ --samples ./sortedbam/ -X populations:--vcf
+5. Corremos "Populations" con los mismos parámetros utilizamos en la corrida de novo ##### Parte 2 #### comando (script_llamado.sh)
+6. Filtramos los datos con los mismos parámetros utilizados en #### parte 2 ##### comando: (script_llamado.sh)
+
+###### cálculo de parámetros de diversidad y estructura genética ########################################################################
+1. Para datos denovo y transcriptoma realizamos análisis exploratorio por morfotipo y sitio de muestreo utilizando el comando de R (ACP_DACP_STAT.R)
+2. Calculamos estadística básica con el comando de R (Estadistica_basica.R) tanto para datos de novo y transcriptoma
+3. Graficamos el espectro de frecuencias de ambos set de datos (de novo y transcriptoma) comando (SFS.R)
+4. Estimamos ancestria de ambos set de datos (de novo y transcriptoma) con el comando (Admixture.sh)
+5. Graficamos los resultados del paso anterior con el comando (Grafico-admixture.R)
+
+######## Análisis de sitios candidatos (selección) datos de transcriptoma ##################################################################
+1. Análisis de selección por el método pcAdapt ###### Parte 1 ###### comando de R (señal de seleccion.R)
+2. Análisis de selección por el método LFMM ####### Parte 2 ######comando de R (señal de seleccion.R)
+3. Análisis de selección por el método BayeScan comando de R (Bayescan.R)
+
+###### Análisis de datos ambientales #######################################################################################################
+1. Análisis de correlación de Pearson para descartar aquellas variables ≥ 0.7 con el comando de R (COR-ACP-ANOVA.R) parte 1
+2. Análisis de componentes principales de las variables resultantes del análisis anteriror con el comando de R (COR-ACP-ANOVA.R) parte 2
+3. Realizar un análsis de varianza a para comparar las medias de las variables ambientales por sitio con el comando de R (COR-ACP-ANOVA.R) parte 3
+
